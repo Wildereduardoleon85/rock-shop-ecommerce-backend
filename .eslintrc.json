@@ -9,6 +9,8 @@
     "object-curly-newline": "off",
     "operator-linebreak": "off",
     "no-console": "off",
-    "import/newline-after-import": "off"
+    "import/newline-after-import": "off",
+    "no-underscore-dangle": "off",
+    "import/prefer-default-export": "off"
   }
 }
