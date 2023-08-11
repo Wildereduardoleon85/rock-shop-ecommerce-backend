@@ -1,9 +1,12 @@
 import express from 'express'
 import { productRoutes } from './routes'
+import cors from 'cors'
 
 require('dotenv').config()
 
 const app = express()
+
+app.use(cors())
 
 const port: number | string = process.env.PORT ?? 5000
 
