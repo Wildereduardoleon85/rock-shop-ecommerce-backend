@@ -9,18 +9,15 @@ export type Product = {
   countInStock: number
   rating: number
   numReviews: number
+  reviews: Review[]
+  user: User
 }
 
-export type ReviewSchema = {
+export type Review = {
   user: User
   name: string
   rating: number
   comment: string
-}
-
-export interface ProductSchema extends Product {
-  user: User
-  reviews: ReviewSchema
 }
 
 export type User = {
@@ -35,7 +32,7 @@ export type OrderItem = {
   qty: number
   image: string
   price: number
-  product: ProductSchema
+  product: Product
 }
 
 export type ShippingAddress = {

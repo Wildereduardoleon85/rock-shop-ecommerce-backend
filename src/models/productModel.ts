@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose'
-import { ProductSchema, ReviewSchema } from '../types'
+import { Product, Review } from '../types'
 
-const reviewSchema = new Schema<ReviewSchema>(
+const reviewSchema = new Schema<Review>(
   {
     user: {
       type: Schema.Types.ObjectId,
@@ -26,7 +26,7 @@ const reviewSchema = new Schema<ReviewSchema>(
   }
 )
 
-const productSchema = new Schema<ProductSchema>(
+const productSchema = new Schema<Product>(
   {
     user: {
       type: Schema.Types.ObjectId,
@@ -80,4 +80,4 @@ const productSchema = new Schema<ProductSchema>(
   }
 )
 
-export const ProductModel = model<ProductSchema>('Product', productSchema)
+export const ProductModel = model<Product>('Product', productSchema)

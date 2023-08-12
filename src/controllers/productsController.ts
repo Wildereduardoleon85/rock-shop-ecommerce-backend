@@ -1,6 +1,7 @@
-import asyncHandler from 'express-async-handler'
 import { Request, Response } from 'express'
-// import { Product } from '../types'
+import { asyncHandler } from '../middlewares'
+import { ProductModel } from '../models'
+import { Product } from '../types'
 
 /**
  * @desc  Get all products
@@ -9,7 +10,9 @@ import { Request, Response } from 'express'
  */
 export const getProducts = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
-    res.status(200).json({ data: 'products' })
+    const products: Product[] = await ProductModel.find()
+
+    res.status(200).json(products)
   }
 )
 
@@ -20,6 +23,8 @@ export const getProducts = asyncHandler(
  */
 export const getProduct = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
-    res.status(200).json({ data: 'product' })
+    const product = await ProductModel.findById(req.params.id)
+
+    res.status(200).json(product)
   }
 )
