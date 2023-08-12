@@ -2,7 +2,7 @@ import { Request } from 'express'
 import { ProductModel } from '../models'
 import { ServiceResponse, Product } from '../types'
 
-export async function getProductService(
+export async function getProductByIdService(
   req: Request
 ): Promise<ServiceResponse<Product>> {
   /**

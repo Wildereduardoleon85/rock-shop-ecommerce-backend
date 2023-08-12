@@ -1,9 +1,9 @@
 import { Router } from 'express'
-import { getProducts, getProduct } from '../controllers/productsController'
+import { getProducts, getProductById } from '../controllers/productsController'
 
 const productRoutes: Router = Router()
 
 productRoutes.route('/').get(getProducts)
-productRoutes.route('/:id').get(getProduct)
+productRoutes.route('/:id').get(getProductById)
 
 export { productRoutes }

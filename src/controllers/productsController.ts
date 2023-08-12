@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { asyncHandler } from '../middlewares'
 import { Product, ServiceResponse } from '../types'
 import { getProductsService } from '../services/getProductsService'
-import { getProductService } from '../services'
+import { getProductByIdService } from '../services'
 
 /**
  * @desc  Get all products
@@ -23,10 +23,10 @@ export const getProducts = asyncHandler(
  * @route GET /api/v1/products/:id
  * @acess public
  */
-export const getProduct = asyncHandler(
+export const getProductById = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
     const { data, statusCode, error }: ServiceResponse<Product> =
-      await getProductService(req)
+      await getProductByIdService(req)
 
     if (error) {
       res.status(statusCode)
