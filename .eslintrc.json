@@ -1,16 +1,10 @@
 {
-  "extends": ["airbnb", "airbnb-typescript"],
+  "extends": ["airbnb", "airbnb-typescript", "prettier"],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
   "rules": {
-    "@typescript-eslint/semi": "off",
-    "@typescript-eslint/comma-dangle": "off",
-    "object-curly-newline": "off",
-    "operator-linebreak": "off",
     "no-console": "off",
-    "import/newline-after-import": "off",
-    "no-underscore-dangle": "off",
     "import/prefer-default-export": "off"
   }
 }

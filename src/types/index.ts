@@ -1,3 +1,5 @@
+import mongoose from 'mongoose'
+
 export type Product = {
   _id: string
   name: string
@@ -9,8 +11,10 @@ export type Product = {
   countInStock: number
   rating: number
   numReviews: number
-  reviews: Review[]
-  user: User
+  reviews?: Review[]
+  user: mongoose.Schema.Types.ObjectId
+  createdAt: Date
+  updatedAt: Date
 }
 
 export type Review = {
@@ -61,4 +65,10 @@ export type Order = {
   user: User
   orderItems: OrderItem[]
   shippingAdress: ShippingAddress
+}
+
+export type ServiceResponse<T> = {
+  data?: T
+  error: string | null
+  statusCode: number
 }

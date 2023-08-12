@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import { productRoutes } from './routes'
 import connectDB from './config/db'
+import { errorHandler, notFound } from './middlewares'
 
 require('dotenv').config()
 
@@ -20,5 +21,8 @@ app.get('/health-check', (req, res) => {
 })
 
 app.use('/api/v1/products', productRoutes)
+
+app.use(notFound)
+app.use(errorHandler)
 
 app.listen(PORT, () => console.log(`server running on port ${PORT}`))
