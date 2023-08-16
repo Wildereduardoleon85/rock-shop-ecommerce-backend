@@ -7,7 +7,7 @@ import { getProductByIdService } from '../services'
 /**
  * @desc  Get all products
  * @route GET /api/v1/products
- * @acess public
+ * @acess Public
  */
 export const getProducts = asyncHandler(
   async (_req: Request, res: Response): Promise<void> => {
@@ -21,7 +21,7 @@ export const getProducts = asyncHandler(
 /**
  * @desc  Get single product
  * @route GET /api/v1/products/:id
- * @acess public
+ * @acess Public
  */
 export const getProductById = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
