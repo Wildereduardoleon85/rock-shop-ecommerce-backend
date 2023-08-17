@@ -11,7 +11,7 @@ import { authService } from '../services'
 export const authUser = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
     const { data, error, statusCode }: ServiceResponse<UserResponse> =
-      await authService(req)
+      await authService(req, res)
 
     if (error) {
       res.status(statusCode)
