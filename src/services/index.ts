@@ -1,2 +1,2 @@
-export { getProductsService } from './getProductsService'
-export { getProductByIdService } from './getProductByIdService'
+export { getProductsService, getProductByIdService } from './productServices'
+export { authService } from './userServices'

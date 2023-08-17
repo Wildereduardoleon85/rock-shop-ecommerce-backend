@@ -1,5 +1,5 @@
-import { ProductModel } from '../models'
-import { ServiceResponse, Product } from '../types'
+import { ProductModel } from '../../models'
+import { ServiceResponse, Product } from '../../types'
 
 export async function getProductsService(): Promise<
   ServiceResponse<Product[]>

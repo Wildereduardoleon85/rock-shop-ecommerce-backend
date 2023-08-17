@@ -1,8 +1,7 @@
 import { Request, Response } from 'express'
 import { asyncHandler } from '../middlewares'
 import { Product, ServiceResponse } from '../types'
-import { getProductsService } from '../services/getProductsService'
-import { getProductByIdService } from '../services'
+import { getProductsService, getProductByIdService } from '../services'
 
 /**
  * @desc  Get all products

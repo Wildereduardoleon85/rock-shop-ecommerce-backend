@@ -25,11 +25,14 @@ export type Review = {
 }
 
 export type User = {
+  _id: string
   name: string
   email: string
   password: string
   isAdmin: boolean
 }
+
+export type UserResponse = Omit<User, 'password'>
 
 export type OrderItem = {
   name: string

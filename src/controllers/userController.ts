@@ -1,5 +1,7 @@
 import { Request, Response } from 'express'
 import { asyncHandler } from '../middlewares'
+import { ServiceResponse, UserResponse } from '../types'
+import { authService } from '../services'
 
 /**
  * @desc  Auth user and get token
@@ -7,8 +9,16 @@ import { asyncHandler } from '../middlewares'
  * @acess Public
  */
 export const authUser = asyncHandler(
-  async (_req: Request, res: Response): Promise<void> => {
-    res.send('auth user')
+  async (req: Request, res: Response): Promise<void> => {
+    const { data, error, statusCode }: ServiceResponse<UserResponse> =
+      await authService(req)
+
+    if (error) {
+      res.status(statusCode)
+      throw new Error(error)
+    }
+
+    res.status(statusCode).json(data)
   }
 )
 
