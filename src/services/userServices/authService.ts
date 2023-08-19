@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { UserModel } from '../../models'
 import { ServiceResponse, UserResponse } from '../../types'
+import { JSON_WEB_TOKEN_COOKIE } from '../../constants'
 
 export async function authService(
   req: Request,
@@ -18,7 +19,7 @@ export async function authService(
       expiresIn: '30d',
     })
 
-    res.cookie('jwt', token, {
+    res.cookie(JSON_WEB_TOKEN_COOKIE, token, {
       httpOnly: true,
       secure: process.env.NODE_ENV !== 'development',
       sameSite: 'strict',

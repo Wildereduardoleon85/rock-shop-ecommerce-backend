@@ -80,3 +80,8 @@ export type ServiceResponse<T> = {
 export interface AuthRequest extends Request {
   user?: User
 }
+
+export type SchemaValidation = {
+  isValid: boolean
+  message: string
+}

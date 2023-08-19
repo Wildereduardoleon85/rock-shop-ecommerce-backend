@@ -3,11 +3,12 @@ import jwt, { JwtPayload } from 'jsonwebtoken'
 import { asyncHandler } from './asyncHandler'
 import { UserModel } from '../models'
 import { AuthRequest, User } from '../types'
+import { JSON_WEB_TOKEN_COOKIE } from '../constants'
 
 export const protect = asyncHandler(
   async (req: AuthRequest, res: Response, next: NextFunction) => {
     // Read the JWT from the cookie
-    const token = req.cookies.jwt
+    const token = req.cookies[JSON_WEB_TOKEN_COOKIE]
     const jwtSecret = process.env.JWT_SECRET as string
 
     if (token) {

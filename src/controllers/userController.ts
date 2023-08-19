@@ -1,7 +1,8 @@
 import { Request, Response } from 'express'
 import { asyncHandler } from '../middlewares'
 import { ServiceResponse, UserResponse } from '../types'
-import { authService } from '../services'
+import { authService, registerService } from '../services'
+import { JSON_WEB_TOKEN_COOKIE } from '../constants'
 
 /**
  * @desc  Auth user and get token
@@ -28,8 +29,16 @@ export const authUser = asyncHandler(
  * @acess Public
  */
 export const registerUser = asyncHandler(
-  async (_req: Request, res: Response): Promise<void> => {
-    res.send('register user')
+  async (req: Request, res: Response): Promise<void> => {
+    const { data, error, statusCode }: ServiceResponse<UserResponse> =
+      await registerService(req)
+
+    if (error) {
+      res.status(statusCode)
+      throw new Error(error)
+    }
+
+    res.status(statusCode).json(data)
   }
 )
 
@@ -39,8 +48,13 @@ export const registerUser = asyncHandler(
  * @acess Private
  */
 export const logoutUser = asyncHandler(
-  async (_req: Request, res: Response): Promise<void> => {
-    res.send('logout user')
+  async (req: Request, res: Response): Promise<void> => {
+    res.cookie(JSON_WEB_TOKEN_COOKIE, '', {
+      httpOnly: true,
+      expires: new Date(0),
+    })
+
+    res.status(200).json({ msg: 'logout successful' })
   }
 )
 
