@@ -10,11 +10,16 @@ import {
   deleteUser,
   updateUser,
 } from '../controllers'
-import { admin, protect, registerValidation } from '../middlewares'
+import {
+  admin,
+  authValidation,
+  protect,
+  registerValidation,
+} from '../middlewares'
 
 const userRoutes: Router = Router()
 
-userRoutes.post('/auth', authUser)
+userRoutes.post('/auth', authValidation, authUser)
 userRoutes.post('/logout', logoutUser)
 userRoutes.post('/', registerValidation, registerUser)
 userRoutes

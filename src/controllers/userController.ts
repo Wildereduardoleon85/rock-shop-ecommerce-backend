@@ -48,7 +48,7 @@ export const registerUser = asyncHandler(
  * @acess Private
  */
 export const logoutUser = asyncHandler(
-  async (req: Request, res: Response): Promise<void> => {
+  async (_req: Request, res: Response): Promise<void> => {
     res.cookie(JSON_WEB_TOKEN_COOKIE, '', {
       httpOnly: true,
       expires: new Date(0),
