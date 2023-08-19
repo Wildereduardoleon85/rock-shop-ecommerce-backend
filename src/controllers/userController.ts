@@ -31,7 +31,7 @@ export const authUser = asyncHandler(
 export const registerUser = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
     const { data, error, statusCode }: ServiceResponse<UserResponse> =
-      await registerService(req)
+      await registerService(req, res)
 
     if (error) {
       res.status(statusCode)

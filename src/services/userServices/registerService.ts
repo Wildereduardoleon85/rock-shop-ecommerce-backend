@@ -1,10 +1,12 @@
-import { Request } from 'express'
+import { Request, Response } from 'express'
 import bcrypt from 'bcryptjs'
 import { UserModel } from '../../models'
 import { ServiceResponse, UserResponse } from '../../types'
+import { setToken } from '../../utils'
 
 export async function registerService(
-  req: Request
+  req: Request,
+  res: Response
 ): Promise<ServiceResponse<UserResponse>> {
   const { email, password, name } = req.body
 
@@ -25,6 +27,8 @@ export async function registerService(
     email,
     password: hashedPassword,
   })
+
+  setToken(res, { id: user._id })
 
   return {
     error: null,
