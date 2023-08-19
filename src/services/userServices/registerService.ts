@@ -1,8 +1,7 @@
 import { Request, Response } from 'express'
-import bcrypt from 'bcryptjs'
 import { UserModel } from '../../models'
 import { ServiceResponse, UserResponse } from '../../types'
-import { setToken } from '../../utils'
+import { hashPassword, setToken } from '../../helpers'
 
 export async function registerService(
   req: Request,
@@ -19,8 +18,7 @@ export async function registerService(
     }
   }
 
-  const salt = await bcrypt.genSalt(10)
-  const hashedPassword = await bcrypt.hash(password, salt)
+  const hashedPassword = await hashPassword(password)
 
   const user = await UserModel.create({
     name,

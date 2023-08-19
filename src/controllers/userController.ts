@@ -1,7 +1,12 @@
 import { Request, Response } from 'express'
 import { asyncHandler } from '../middlewares'
-import { ServiceResponse, UserResponse } from '../types'
-import { authService, registerService } from '../services'
+import { AuthRequest, ServiceResponse, UserResponse } from '../types'
+import {
+  authService,
+  registerService,
+  getUserProfileService,
+  updateUserProfileService,
+} from '../services'
 import { JSON_WEB_TOKEN_COOKIE } from '../constants'
 
 /**
@@ -64,8 +69,15 @@ export const logoutUser = asyncHandler(
  * @acess Private
  */
 export const getUserProfile = asyncHandler(
-  async (_req: Request, res: Response): Promise<void> => {
-    res.send('get user profile')
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    const { error, data, statusCode } = await getUserProfileService(req)
+
+    if (error) {
+      res.status(statusCode)
+      throw new Error(error)
+    }
+
+    res.status(statusCode).json(data)
   }
 )
 
@@ -75,8 +87,15 @@ export const getUserProfile = asyncHandler(
  * @acess Private
  */
 export const updateUserProfile = asyncHandler(
-  async (_req: Request, res: Response): Promise<void> => {
-    res.send('update user profile')
+  async (req: Request, res: Response): Promise<void> => {
+    const { error, data, statusCode } = await updateUserProfileService(req)
+
+    if (error) {
+      res.status(statusCode)
+      throw new Error(error)
+    }
+
+    res.status(statusCode).json(data)
   }
 )
 

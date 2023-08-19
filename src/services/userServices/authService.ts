@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import bcrypt from 'bcryptjs'
 import { UserModel } from '../../models'
 import { ServiceResponse, UserResponse } from '../../types'
-import { setToken } from '../../utils'
+import { setToken } from '../../helpers'
 
 export async function authService(
   req: Request,
