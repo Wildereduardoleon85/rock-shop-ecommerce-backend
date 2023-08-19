@@ -1,5 +1,6 @@
 import express from 'express'
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
 import { productRoutes, userRoutes } from './routes'
 import connectDB from './config/db'
 import { errorHandler, notFound } from './middlewares'
@@ -13,6 +14,7 @@ connectDB()
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser())
 
 const PORT: number | string = process.env.PORT ?? 5000
 

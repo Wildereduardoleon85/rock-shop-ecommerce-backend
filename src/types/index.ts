@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { Request } from 'express'
 
 export type Product = {
   _id: string
@@ -74,4 +75,8 @@ export type ServiceResponse<T> = {
   data?: T
   error: string | null
   statusCode: number
+}
+
+export interface AuthRequest extends Request {
+  user?: User
 }

@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
 import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 import { UserModel } from '../../models'
 import { ServiceResponse, UserResponse } from '../../types'
-import { generateToken } from '../../utils'
 
 export async function authService(
   req: Request,
@@ -14,7 +14,9 @@ export async function authService(
 
   if (user && (await bcrypt.compare(password, user.password))) {
     // Set JWT as HTTP-Only cookie
-    const token = generateToken(user._id)
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string, {
+      expiresIn: '30d',
+    })
 
     res.cookie('jwt', token, {
       httpOnly: true,

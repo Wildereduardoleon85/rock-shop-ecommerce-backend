@@ -10,19 +10,23 @@ import {
   deleteUser,
   updateUser,
 } from '../controllers'
+import { admin, protect } from '../middlewares'
 
 const userRoutes: Router = Router()
 
-userRoutes.post('/login', authUser)
+userRoutes.post('/auth', authUser)
 userRoutes.post('/logout', logoutUser)
 userRoutes.post('/', registerUser)
-userRoutes.route('/profile').get(getUserProfile).put(updateUserProfile)
+userRoutes
+  .route('/profile')
+  .get(protect, getUserProfile)
+  .put(protect, updateUserProfile)
 // admin routes:
-userRoutes.get('/admin', getUsers)
+userRoutes.get('/admin', protect, admin, getUsers)
 userRoutes
   .route('/admin/:id')
-  .get(getUserById)
-  .delete(deleteUser)
-  .put(updateUser)
+  .get(protect, admin, getUserById)
+  .delete(protect, admin, deleteUser)
+  .put(protect, admin, updateUser)
 
 export { userRoutes }

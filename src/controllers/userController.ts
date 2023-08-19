@@ -5,7 +5,7 @@ import { authService } from '../services'
 
 /**
  * @desc  Auth user and get token
- * @route POST /api/v1/users/login
+ * @route POST /api/v1/users/auth
  * @acess Public
  */
 export const authUser = asyncHandler(
