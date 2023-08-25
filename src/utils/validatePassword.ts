@@ -22,7 +22,7 @@ export const validatePassword = (password: any): SchemaValidation => {
     }
   }
 
-  if (password.trim().length > 10) {
+  if (password.trim().length > 16) {
     return {
       isValid: false,
       message: 'field password must must not exceed 10 characters',

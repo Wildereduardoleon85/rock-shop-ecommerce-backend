@@ -10,7 +10,7 @@ export async function authService(
 ): Promise<ServiceResponse<UserResponse>> {
   const { email, password } = req.body
 
-  const user = await UserModel.findOne({ email })
+  const user = await UserModel.findOne({ email: email.toLowerCase() })
 
   if (user && (await bcrypt.compare(password, user.password))) {
     setToken(res, { id: user._id })

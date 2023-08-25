@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import { UserModel } from '../../models'
 import { ServiceResponse, UserResponse } from '../../types'
 import { hashPassword, setToken } from '../../helpers'
+import { capitalize } from '../../utils/capialize'
 
 export async function registerService(
   req: Request,
@@ -21,8 +22,8 @@ export async function registerService(
   const hashedPassword = await hashPassword(password)
 
   const user = await UserModel.create({
-    name,
-    email,
+    name: capitalize(name),
+    email: email.toLowerCase(),
     password: hashedPassword,
   })
 

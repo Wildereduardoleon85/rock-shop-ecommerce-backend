@@ -1,9 +1,9 @@
 import { AuthRequest, ServiceResponse, UserResponse } from '../../types'
 import { UserModel } from '../../models'
 
-export const getUserProfileService = async (
+export async function getUserProfileService(
   req: AuthRequest
-): Promise<ServiceResponse<UserResponse>> => {
+): Promise<ServiceResponse<UserResponse>> {
   try {
     const user = (await UserModel.findById(req.user?._id)) as UserResponse
     return {
