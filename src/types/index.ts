@@ -85,3 +85,11 @@ export type SchemaValidation = {
   isValid: boolean
   message: string
 }
+
+export type GetOrderByIdResponse = Omit<Order, 'user'> & {
+  user: {
+    _id: Schema.Types.ObjectId
+    name: string
+    email: string
+  }
+}

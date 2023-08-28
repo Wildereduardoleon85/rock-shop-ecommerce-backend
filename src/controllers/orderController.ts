@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { asyncHandler } from '../middlewares'
 import { OrderModel } from '../models'
 import { AuthRequest, User } from '../types'
-import { addOrderItemsService } from '../services'
+import { addOrderItemsService, getOrderByIdService } from '../services'
 
 /**
  * @desc  Create new order
@@ -42,17 +42,14 @@ export const getMyOrders = asyncHandler(
  */
 export const getOrderById = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
-    const order = await OrderModel.findById(req.params.id).populate(
-      'user',
-      'name email'
-    )
+    const { data, error, statusCode } = await getOrderByIdService(req)
 
-    if (order) {
-      res.status(200).json(order)
-    } else {
-      res.status(404)
-      throw new Error(`Order with id ${req.params.id} not found`)
+    if (error) {
+      res.status(statusCode)
+      throw new Error(error)
     }
+
+    res.status(statusCode).json(data)
   }
 )
 
