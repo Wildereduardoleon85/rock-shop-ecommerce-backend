@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 import { Request } from 'express'
 
 export type Product = {
@@ -40,7 +40,7 @@ export type OrderItem = {
   qty: number
   image: string
   price: number
-  product: Product
+  product: Schema.Types.ObjectId
 }
 
 export type ShippingAddress = {
@@ -48,6 +48,12 @@ export type ShippingAddress = {
   city: string
   postalCode: string
   country: string
+}
+
+export type Order = {
+  user: Schema.Types.ObjectId
+  orderItems: OrderItem[]
+  shippingAddress: ShippingAddress
   paymentMethod: string
   paymentResult: {
     id?: string
@@ -63,12 +69,6 @@ export type ShippingAddress = {
   paidAt: Date
   isDelivered: boolean
   deliveredAt: Date
-}
-
-export type Order = {
-  user: User
-  orderItems: OrderItem[]
-  shippingAdress: ShippingAddress
 }
 
 export type ServiceResponse<T> = {

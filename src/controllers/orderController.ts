@@ -1,5 +1,8 @@
-import { Response } from 'express'
+import { Request, Response } from 'express'
 import { asyncHandler } from '../middlewares'
+import { OrderModel } from '../models'
+import { AuthRequest, User } from '../types'
+import { addOrderItemsService } from '../services'
 
 /**
  * @desc  Create new order
@@ -7,8 +10,15 @@ import { asyncHandler } from '../middlewares'
  * @acess Private
  */
 export const addOrderItems = asyncHandler(
-  async (_req: Request, res: Response): Promise<void> => {
-    res.send('add order items')
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    const { data, error, statusCode } = await addOrderItemsService(req)
+
+    if (error) {
+      res.status(statusCode)
+      throw new Error(error)
+    }
+
+    res.status(statusCode).json(data)
   }
 )
 
@@ -18,19 +28,31 @@ export const addOrderItems = asyncHandler(
  * @acess Private
  */
 export const getMyOrders = asyncHandler(
-  async (_req: Request, res: Response): Promise<void> => {
-    res.send('get my orders')
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    const user = req.user as User
+    const myOrders = await OrderModel.find({ user: user._id })
+    res.status(200).json(myOrders)
   }
 )
 
 /**
  * @desc  Get order by id
  * @route GET /api/v1/orders/:id
- * @acess Private/Admin
+ * @acess Private
  */
 export const getOrderById = asyncHandler(
-  async (_req: Request, res: Response): Promise<void> => {
-    res.send('get order by id')
+  async (req: Request, res: Response): Promise<void> => {
+    const order = await OrderModel.findById(req.params.id).populate(
+      'user',
+      'name email'
+    )
+
+    if (order) {
+      res.status(200).json(order)
+    } else {
+      res.status(404)
+      throw new Error(`Order with id ${req.params.id} not found`)
+    }
   }
 )
 
