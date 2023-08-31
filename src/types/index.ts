@@ -55,12 +55,6 @@ export type Order = {
   orderItems: OrderItem[]
   shippingAddress: ShippingAddress
   paymentMethod: string
-  paymentResult: {
-    id?: string
-    status?: string
-    update_time?: string
-    email_adress?: string
-  }
   itemsPrice: number
   taxPrice: number
   shippingPrice: number

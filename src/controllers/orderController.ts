@@ -2,7 +2,11 @@ import { Request, Response } from 'express'
 import { asyncHandler } from '../middlewares'
 import { OrderModel } from '../models'
 import { AuthRequest, User } from '../types'
-import { addOrderItemsService, getOrderByIdService } from '../services'
+import {
+  addOrderItemsService,
+  getOrderByIdService,
+  updateOrderToPaidService,
+} from '../services'
 
 /**
  * @desc  Create new order
@@ -59,8 +63,15 @@ export const getOrderById = asyncHandler(
  * @acess Private
  */
 export const updateOrderToPaid = asyncHandler(
-  async (_req: Request, res: Response): Promise<void> => {
-    res.send('update order to paid')
+  async (req: Request, res: Response): Promise<void> => {
+    const { data, error, statusCode } = await updateOrderToPaidService(req)
+
+    if (error) {
+      res.status(statusCode)
+      throw new Error(error)
+    }
+
+    res.status(statusCode).json(data)
   }
 )
 

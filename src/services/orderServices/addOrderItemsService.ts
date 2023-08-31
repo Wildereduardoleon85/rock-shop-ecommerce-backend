@@ -19,6 +19,8 @@ export async function addOrderItemsService(
     taxPrice,
     shippingPrice,
     totalPrice,
+    isPaid,
+    paidAt,
   } = req.body
 
   const user = req.user as User
@@ -39,6 +41,8 @@ export async function addOrderItemsService(
       taxPrice,
       shippingPrice,
       totalPrice,
+      isPaid,
+      paidAt,
     })
 
     return {
