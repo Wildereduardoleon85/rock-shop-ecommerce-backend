@@ -1,11 +1,11 @@
 import { Request, Response } from 'express'
 import { asyncHandler } from '../middlewares'
-import { OrderModel } from '../models'
-import { AuthRequest, User } from '../types'
+import { AuthRequest } from '../types'
 import {
   addOrderItemsService,
   getOrderByIdService,
   updateOrderToPaidService,
+  getMyOrdersService,
 } from '../services'
 
 /**
@@ -33,9 +33,14 @@ export const addOrderItems = asyncHandler(
  */
 export const getMyOrders = asyncHandler(
   async (req: AuthRequest, res: Response): Promise<void> => {
-    const user = req.user as User
-    const myOrders = await OrderModel.find({ user: user._id })
-    res.status(200).json(myOrders)
+    const { data, error, statusCode } = await getMyOrdersService(req)
+
+    if (error) {
+      res.status(statusCode)
+      throw new Error(error)
+    }
+
+    res.status(statusCode).json(data)
   }
 )
 
