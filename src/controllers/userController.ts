@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { asyncHandler } from '../middlewares'
-import { AuthRequest, ServiceResponse, UserResponse } from '../types'
+import { AuthRequest } from '../types'
 import {
   authService,
   registerService,
@@ -16,8 +16,7 @@ import { JSON_WEB_TOKEN_COOKIE } from '../constants'
  */
 export const authUser = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
-    const { data, error, statusCode }: ServiceResponse<UserResponse> =
-      await authService(req, res)
+    const { data, error, statusCode } = await authService(req, res)
 
     if (error) {
       res.status(statusCode)
@@ -35,8 +34,7 @@ export const authUser = asyncHandler(
  */
 export const registerUser = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
-    const { data, error, statusCode }: ServiceResponse<UserResponse> =
-      await registerService(req, res)
+    const { data, error, statusCode } = await registerService(req, res)
 
     if (error) {
       res.status(statusCode)

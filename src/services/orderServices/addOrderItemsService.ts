@@ -1,16 +1,9 @@
-import { Document } from 'mongoose'
 import { OrderModel } from '../../models'
-import {
-  AuthRequest,
-  Order,
-  OrderItem,
-  ServiceResponse,
-  User,
-} from '../../types'
+import { AuthRequest, OrderItem, ServiceResponse, User } from '../../types'
 
 export async function addOrderItemsService(
   req: AuthRequest
-): Promise<ServiceResponse<Document<unknown, {}, Order>>> {
+): Promise<ServiceResponse> {
   const {
     orderItems,
     shippingAddress,

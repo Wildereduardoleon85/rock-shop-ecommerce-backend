@@ -1,13 +1,13 @@
 import { Request, Response } from 'express'
 import { UserModel } from '../../models'
-import { ServiceResponse, UserResponse } from '../../types'
+import { ServiceResponse } from '../../types'
 import { hashPassword, setToken } from '../../helpers'
 import { capitalize } from '../../utils/capialize'
 
 export async function registerService(
   req: Request,
   res: Response
-): Promise<ServiceResponse<UserResponse>> {
+): Promise<ServiceResponse> {
   const { email, password, name } = req.body
 
   const userExists = await UserModel.findOne({ email })

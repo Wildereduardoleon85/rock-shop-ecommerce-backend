@@ -1,6 +1,6 @@
 import { Model } from 'mongoose'
 import { UserModel } from '../../models'
-import { AuthRequest, ServiceResponse, User, UserResponse } from '../../types'
+import { AuthRequest, ServiceResponse, User } from '../../types'
 import { validateEmail, validateName, validatePassword } from '../../utils'
 import { hashPassword } from '../../helpers'
 
@@ -14,7 +14,7 @@ async function updateUserDocument(
   id: string,
   userModel: Model<User>,
   schema: UpdatedUser
-): Promise<ServiceResponse<UserResponse>> {
+): Promise<ServiceResponse> {
   try {
     const updatedUser = (await userModel.findByIdAndUpdate(
       id,
@@ -42,7 +42,7 @@ async function updateUserDocument(
 
 export const updateUserProfileService = async (
   req: AuthRequest
-): Promise<ServiceResponse<UserResponse>> => {
+): Promise<ServiceResponse> => {
   const { email, password, name } = req.body
 
   const validationMessage = []

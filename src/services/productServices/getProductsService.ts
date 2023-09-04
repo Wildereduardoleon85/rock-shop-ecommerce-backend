@@ -1,10 +1,8 @@
 import { ProductModel } from '../../models'
-import { ServiceResponse, Product } from '../../types'
+import { ServiceResponse } from '../../types'
 
-export async function getProductsService(): Promise<
-  ServiceResponse<Product[]>
-> {
-  const products = await ProductModel.find()
+export async function getProductsService(): Promise<ServiceResponse> {
+  const products = await ProductModel.find({}).populate('user', 'id name')
 
   return {
     data: products,

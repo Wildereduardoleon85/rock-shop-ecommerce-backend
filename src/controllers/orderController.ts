@@ -6,6 +6,8 @@ import {
   getOrderByIdService,
   updateOrderToPaidService,
   getMyOrdersService,
+  getOrdersService,
+  updateOrderToDeliveredService,
 } from '../services'
 
 /**
@@ -86,8 +88,15 @@ export const updateOrderToPaid = asyncHandler(
  * @acess Private/Admin
  */
 export const updateOrderToDelivered = asyncHandler(
-  async (_req: Request, res: Response): Promise<void> => {
-    res.send('update order to delivered')
+  async (req: Request, res: Response): Promise<void> => {
+    const { data, error, statusCode } = await updateOrderToDeliveredService(req)
+
+    if (error) {
+      res.status(statusCode)
+      throw new Error(error)
+    }
+
+    res.status(statusCode).json(data)
   }
 )
 
@@ -98,6 +107,13 @@ export const updateOrderToDelivered = asyncHandler(
  */
 export const getOrders = asyncHandler(
   async (_req: Request, res: Response): Promise<void> => {
-    res.send('get all orders')
+    const { data, error, statusCode } = await getOrdersService()
+
+    if (error) {
+      res.status(statusCode)
+      throw new Error(error)
+    }
+
+    res.status(statusCode).json(data)
   }
 )

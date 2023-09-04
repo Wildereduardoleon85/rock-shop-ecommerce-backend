@@ -1,6 +1,5 @@
 import { Request, Response } from 'express'
 import { asyncHandler } from '../middlewares'
-import { Product, ServiceResponse } from '../types'
 import { getProductsService, getProductByIdService } from '../services'
 
 /**
@@ -10,8 +9,7 @@ import { getProductsService, getProductByIdService } from '../services'
  */
 export const getProducts = asyncHandler(
   async (_req: Request, res: Response): Promise<void> => {
-    const { data, statusCode }: ServiceResponse<Product[]> =
-      await getProductsService()
+    const { data, statusCode } = await getProductsService()
 
     res.status(statusCode).json(data)
   }
@@ -24,8 +22,7 @@ export const getProducts = asyncHandler(
  */
 export const getProductById = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
-    const { data, statusCode, error }: ServiceResponse<Product> =
-      await getProductByIdService(req)
+    const { data, statusCode, error } = await getProductByIdService(req)
 
     if (error) {
       res.status(statusCode)

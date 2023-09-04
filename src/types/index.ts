@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose'
+import { Schema } from 'mongoose'
 import { Request } from 'express'
 
 export type Product = {
@@ -13,7 +13,7 @@ export type Product = {
   rating: number
   numReviews: number
   reviews?: Review[]
-  user: mongoose.Schema.Types.ObjectId
+  user: Schema.Types.ObjectId
   createdAt: Date
   updatedAt: Date
 }
@@ -35,7 +35,7 @@ export type User = {
 
 export type UserResponse = Omit<User, 'password'>
 
-export type OrderItem = {
+export interface OrderItem extends Document {
   name: string
   qty: number
   image: string
@@ -43,17 +43,15 @@ export type OrderItem = {
   product: Schema.Types.ObjectId
 }
 
-export type ShippingAddress = {
-  address: string
-  city: string
-  postalCode: string
-  country: string
-}
-
-export type Order = {
+export interface Order extends Document {
   user: Schema.Types.ObjectId
   orderItems: OrderItem[]
-  shippingAddress: ShippingAddress
+  shippingAddress: {
+    address: string
+    city: string
+    postalCode: string
+    country: string
+  }
   paymentMethod: string
   itemsPrice: number
   taxPrice: number
@@ -65,8 +63,8 @@ export type Order = {
   deliveredAt: Date
 }
 
-export type ServiceResponse<T> = {
-  data?: T
+export type ServiceResponse = {
+  data?: any
   error: string | null
   statusCode: number
 }
@@ -78,12 +76,4 @@ export interface AuthRequest extends Request {
 export type SchemaValidation = {
   isValid: boolean
   message: string
-}
-
-export type GetOrderByIdResponse = Omit<Order, 'user'> & {
-  user: {
-    _id: Schema.Types.ObjectId
-    name: string
-    email: string
-  }
 }

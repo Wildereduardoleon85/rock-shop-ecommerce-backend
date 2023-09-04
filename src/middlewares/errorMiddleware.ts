@@ -13,15 +13,23 @@ export const notFound = (
 
 export function errorHandler(
   err: any,
-  _req: Request,
+  req: Request,
   res: Response,
   _next: NextFunction
 ): void {
-  const statusCode: number = res.statusCode === 200 ? 500 : res.statusCode
+  if (err.message.includes('Cast to ObjectId failed')) {
+    res.status(404)
+    res.json({
+      message: 'item not found',
+      stack: process.env.NODE_ENV === 'production' ? null : err.stack,
+    })
+  } else {
+    const statusCode: number = res.statusCode === 200 ? 500 : res.statusCode
 
-  res.status(statusCode)
-  res.json({
-    message: err.message,
-    stack: process.env.NODE_ENV === 'production' ? null : err.stack,
-  })
+    res.status(statusCode)
+    res.json({
+      message: err.message,
+      stack: process.env.NODE_ENV === 'production' ? null : err.stack,
+    })
+  }
 }

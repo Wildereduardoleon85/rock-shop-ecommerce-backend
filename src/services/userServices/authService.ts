@@ -1,13 +1,13 @@
 import { Request, Response } from 'express'
 import bcrypt from 'bcryptjs'
 import { UserModel } from '../../models'
-import { ServiceResponse, UserResponse } from '../../types'
+import { ServiceResponse } from '../../types'
 import { setToken } from '../../helpers'
 
 export async function authService(
   req: Request,
   res: Response
-): Promise<ServiceResponse<UserResponse>> {
+): Promise<ServiceResponse> {
   const { email, password } = req.body
 
   const user = await UserModel.findOne({ email: email.toLowerCase() })

@@ -1,9 +1,9 @@
 import { OrderModel } from '../../models'
-import { AuthRequest, Order, ServiceResponse, User } from '../../types'
+import { AuthRequest, ServiceResponse, User } from '../../types'
 
 export async function getMyOrdersService(
   req: AuthRequest
-): Promise<ServiceResponse<Order[] | []>> {
+): Promise<ServiceResponse> {
   const user = req.user as User
 
   const myOrders = await OrderModel.find({

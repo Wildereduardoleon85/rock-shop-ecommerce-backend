@@ -1,48 +1,5 @@
 import { Schema, model } from 'mongoose'
-import { Order, OrderItem, ShippingAddress } from '../types'
-
-const orderItemsSchema = new Schema<OrderItem>({
-  name: {
-    type: String,
-    required: true,
-  },
-  qty: {
-    type: Number,
-    required: true,
-  },
-  image: {
-    type: String,
-    required: true,
-  },
-  price: {
-    type: Number,
-    required: true,
-  },
-  product: {
-    type: Schema.Types.ObjectId,
-    required: true,
-    ref: 'Product',
-  },
-})
-
-const shippingAddressSchema = new Schema<ShippingAddress>({
-  address: {
-    type: String,
-    required: true,
-  },
-  city: {
-    type: String,
-    required: true,
-  },
-  postalCode: {
-    type: String,
-    required: true,
-  },
-  country: {
-    type: String,
-    required: true,
-  },
-})
+import { Order } from '../types'
 
 const orderSchema = new Schema<Order>(
   {
@@ -51,8 +8,49 @@ const orderSchema = new Schema<Order>(
       required: true,
       ref: 'User',
     },
-    orderItems: [orderItemsSchema],
-    shippingAddress: shippingAddressSchema,
+    orderItems: [
+      {
+        name: {
+          type: String,
+          required: true,
+        },
+        qty: {
+          type: Number,
+          required: true,
+        },
+        image: {
+          type: String,
+          required: true,
+        },
+        price: {
+          type: Number,
+          required: true,
+        },
+        product: {
+          type: Schema.Types.ObjectId,
+          required: true,
+          ref: 'Product',
+        },
+      },
+    ],
+    shippingAddress: {
+      address: {
+        type: String,
+        required: true,
+      },
+      city: {
+        type: String,
+        required: true,
+      },
+      postalCode: {
+        type: String,
+        required: true,
+      },
+      country: {
+        type: String,
+        required: true,
+      },
+    },
     paymentMethod: {
       type: String,
       required: true,

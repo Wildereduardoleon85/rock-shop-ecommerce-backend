@@ -1,13 +1,13 @@
 import { Request } from 'express'
-import { ServiceResponse } from '../../types'
 import { OrderModel } from '../../models'
+import { ServiceResponse } from '../../types'
 
-export async function updateOrderToPaidService(
+export async function updateOrderToDeliveredService(
   req: Request
 ): Promise<ServiceResponse> {
   const updatedOrder = await OrderModel.findOneAndUpdate(
     { _id: req.params.id },
-    { isPaid: true, paidAt: Date.now() },
+    { isDelivered: true, deliveredAt: Date.now() },
     { new: true }
   )
 
