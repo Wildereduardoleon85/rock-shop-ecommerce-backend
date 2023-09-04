@@ -1,6 +1,11 @@
 import { Request, Response } from 'express'
 import { asyncHandler } from '../middlewares'
-import { getProductsService, getProductByIdService } from '../services'
+import {
+  getProductsService,
+  getProductByIdService,
+  createProductService,
+} from '../services'
+import { AuthRequest } from '../types'
 
 /**
  * @desc  Get all products
@@ -23,6 +28,24 @@ export const getProducts = asyncHandler(
 export const getProductById = asyncHandler(
   async (req: Request, res: Response): Promise<void> => {
     const { data, statusCode, error } = await getProductByIdService(req)
+
+    if (error) {
+      res.status(statusCode)
+      throw new Error(error)
+    }
+
+    res.status(statusCode).json(data)
+  }
+)
+
+/**
+ * @desc  Create product
+ * @route POST /api/v1/products
+ * @acess Private/Admin
+ */
+export const createProduct = asyncHandler(
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    const { data, statusCode, error } = await createProductService(req)
 
     if (error) {
       res.status(statusCode)
