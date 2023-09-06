@@ -8,9 +8,16 @@ export async function updateProductService(req: Request) {
     { new: true }
   )
 
+  if (updatedProduct) {
+    return {
+      error: null,
+      data: updatedProduct,
+      statusCode: 200,
+    }
+  }
+
   return {
-    error: null,
-    data: updatedProduct,
-    statusCode: 200,
+    error: `product with id ${req.params.id} not found`,
+    statusCode: 404,
   }
 }

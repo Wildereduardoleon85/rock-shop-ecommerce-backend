@@ -15,13 +15,13 @@ async function updateUserDocument(
   userModel: Model<User>,
   schema: UpdatedUser
 ): Promise<ServiceResponse> {
-  try {
-    const updatedUser = (await userModel.findByIdAndUpdate(
-      id,
-      { $set: schema },
-      { new: true }
-    )) as User
+  const updatedUser = (await userModel.findByIdAndUpdate(
+    id,
+    { $set: schema },
+    { new: true }
+  )) as User
 
+  if (updatedUser) {
     return {
       data: {
         _id: updatedUser._id,
@@ -32,11 +32,11 @@ async function updateUserDocument(
       error: null,
       statusCode: 200,
     }
-  } catch (error) {
-    return {
-      error: `user with id ${id} is not found`,
-      statusCode: 404,
-    }
+  }
+
+  return {
+    error: `user with id ${id} not found`,
+    statusCode: 404,
   }
 }
 

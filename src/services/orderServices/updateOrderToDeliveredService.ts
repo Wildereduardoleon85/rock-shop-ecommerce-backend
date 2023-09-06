@@ -11,9 +11,16 @@ export async function updateOrderToDeliveredService(
     { new: true }
   )
 
+  if (updatedOrder) {
+    return {
+      data: updatedOrder,
+      error: null,
+      statusCode: 200,
+    }
+  }
+
   return {
-    data: updatedOrder,
-    error: null,
-    statusCode: 200,
+    error: `order with id ${req.params.id} not found`,
+    statusCode: 404,
   }
 }
