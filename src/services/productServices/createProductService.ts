@@ -8,7 +8,7 @@ export async function createProductService(
     name: 'Sample name',
     price: 0,
     user: req.user?._id,
-    image: 'sample.jpg',
+    image: 'sample-image.png',
     brand: 'Sample brand',
     category: 'Sample category',
     countInStock: 0,
