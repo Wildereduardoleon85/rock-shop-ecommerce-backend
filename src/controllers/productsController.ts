@@ -5,6 +5,7 @@ import {
   getProductByIdService,
   createProductService,
   updateProductService,
+  deleteProductService,
 } from '../services'
 import { AuthRequest } from '../types'
 
@@ -65,6 +66,24 @@ export const createProduct = asyncHandler(
 export const updateProduct = asyncHandler(
   async (req: AuthRequest, res: Response): Promise<void> => {
     const { data, statusCode, error } = await updateProductService(req)
+
+    if (error) {
+      res.status(statusCode)
+      throw new Error(error)
+    }
+
+    res.status(statusCode).json(data)
+  }
+)
+
+/**
+ * @desc  Delete product
+ * @route DELETE /api/v1/products/:id
+ * @acess Private/Admin
+ */
+export const deleteProduct = asyncHandler(
+  async (req: AuthRequest, res: Response): Promise<void> => {
+    const { data, statusCode, error } = await deleteProductService(req)
 
     if (error) {
       res.status(statusCode)

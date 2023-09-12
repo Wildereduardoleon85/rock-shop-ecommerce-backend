@@ -4,6 +4,7 @@ import {
   getProductById,
   createProduct,
   updateProduct,
+  deleteProduct,
 } from '../controllers'
 import { admin, protect, updateProductValidation } from '../middlewares'
 
@@ -14,5 +15,6 @@ productRoutes
   .route('/:id')
   .get(getProductById)
   .put(protect, admin, updateProductValidation, updateProduct)
+  .delete(protect, admin, deleteProduct)
 
 export { productRoutes }
