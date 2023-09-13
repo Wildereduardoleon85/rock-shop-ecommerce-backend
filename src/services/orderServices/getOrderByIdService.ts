@@ -10,9 +10,16 @@ export async function getOrderByIdService(
     'name email'
   )
 
+  if (order) {
+    return {
+      data: order,
+      error: null,
+      statusCode: 200,
+    }
+  }
+
   return {
-    data: order,
-    error: null,
-    statusCode: 200,
+    error: `order with id ${req.params.id} not found`,
+    statusCode: 404,
   }
 }

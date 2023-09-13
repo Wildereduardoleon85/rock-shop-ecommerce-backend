@@ -1,22 +1,33 @@
 import { Request } from 'express'
 import { ServiceResponse } from '../../types'
 import { ProductModel } from '../../models'
+import { DEFAULT_PRODUCT_IDS } from '../../constants'
 
 export async function deleteProductService(
   req: Request
 ): Promise<ServiceResponse> {
-  const productDeleted = await ProductModel.findByIdAndDelete(req.params.id)
+  const { id } = req.params
+  const foundProduct = await ProductModel.findById(id)
 
-  if (!productDeleted) {
+  if (foundProduct) {
+    if (DEFAULT_PRODUCT_IDS.includes(id)) {
+      return {
+        error: 'this product should not be deleted',
+        statusCode: 400,
+      }
+    }
+
+    await ProductModel.findByIdAndDelete(id)
+
     return {
-      error: `product with id ${req.params.id} not found`,
-      statusCode: 404,
+      data: 'product deleted successfully',
+      statusCode: 200,
+      error: null,
     }
   }
 
   return {
-    data: null,
-    error: '',
-    statusCode: 200,
+    error: `product with id ${id} not found`,
+    statusCode: 404,
   }
 }

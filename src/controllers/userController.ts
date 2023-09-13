@@ -6,6 +6,9 @@ import {
   registerService,
   getUserProfileService,
   updateUserProfileService,
+  getUsersService,
+  getUserByIdService,
+  deleteUserService,
 } from '../services'
 import { JSON_WEB_TOKEN_COOKIE } from '../constants'
 
@@ -103,8 +106,15 @@ export const updateUserProfile = asyncHandler(
  * @acess Private/Admin
  */
 export const getUsers = asyncHandler(
-  async (_req: Request, res: Response): Promise<void> => {
-    res.send('get users')
+  async (req: Request, res: Response): Promise<void> => {
+    const { error, data, statusCode } = await getUsersService()
+
+    if (error) {
+      res.status(statusCode)
+      throw new Error(error)
+    }
+
+    res.status(statusCode).json(data)
   }
 )
 
@@ -114,8 +124,15 @@ export const getUsers = asyncHandler(
  * @acess Private/Admin
  */
 export const getUserById = asyncHandler(
-  async (_req: Request, res: Response): Promise<void> => {
-    res.send('get user by id')
+  async (req: Request, res: Response): Promise<void> => {
+    const { error, data, statusCode } = await getUserByIdService(req)
+
+    if (error) {
+      res.status(statusCode)
+      throw new Error(error)
+    }
+
+    res.status(statusCode).json(data)
   }
 )
 
@@ -125,8 +142,15 @@ export const getUserById = asyncHandler(
  * @acess Private/Admin
  */
 export const deleteUser = asyncHandler(
-  async (_req: Request, res: Response): Promise<void> => {
-    res.send('delete user')
+  async (req: Request, res: Response): Promise<void> => {
+    const { error, data, statusCode } = await deleteUserService(req)
+
+    if (error) {
+      res.status(statusCode)
+      throw new Error(error)
+    }
+
+    res.status(statusCode).json(data)
   }
 )
 

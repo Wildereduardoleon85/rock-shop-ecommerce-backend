@@ -7,9 +7,16 @@ export async function getProductByIdService(
 ): Promise<ServiceResponse> {
   const product = await ProductModel.findById(req.params.id)
 
+  if (product) {
+    return {
+      data: product,
+      error: null,
+      statusCode: 200,
+    }
+  }
+
   return {
-    data: product,
-    error: null,
-    statusCode: 200,
+    error: `product with id ${req.params.id} not found`,
+    statusCode: 404,
   }
 }
