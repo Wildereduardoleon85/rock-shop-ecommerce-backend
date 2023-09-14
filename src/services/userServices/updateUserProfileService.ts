@@ -1,19 +1,17 @@
 import { Model } from 'mongoose'
 import { UserModel } from '../../models'
-import { AuthRequest, ServiceResponse, User } from '../../types'
-import { validateEmail, validateName, validatePassword } from '../../utils'
-import { hashPassword } from '../../helpers'
-
-type UpdatedUser = {
-  name?: string
-  email?: string
-  password?: string
-}
+import {
+  AuthRequest,
+  ServiceResponse,
+  UserProfileSchema,
+  User,
+} from '../../types'
+import { validateUpdateUserProfileSchema } from '../../validations'
 
 async function updateUserDocument(
   id: string,
   userModel: Model<User>,
-  schema: UpdatedUser
+  schema: UserProfileSchema
 ): Promise<ServiceResponse> {
   const updatedUser = (await userModel.findByIdAndUpdate(
     id,
@@ -45,40 +43,17 @@ export const updateUserProfileService = async (
 ): Promise<ServiceResponse> => {
   const { email, password, name } = req.body
 
-  const validationMessage = []
-  const updatedUserData: UpdatedUser = {}
+  const { updatedUserData, error: validationError } =
+    await validateUpdateUserProfileSchema({
+      email,
+      password,
+      name,
+      id: req.user?._id,
+    })
 
-  if (email) {
-    const { isValid, message } = validateEmail(email)
-    if (!isValid) {
-      validationMessage.push(message)
-    } else {
-      updatedUserData.email = email
-    }
-  }
-
-  if (password) {
-    const { isValid, message } = validatePassword(password)
-    if (!isValid) {
-      validationMessage.push(message)
-    } else {
-      const hashedPassword = await hashPassword(password)
-      updatedUserData.password = hashedPassword
-    }
-  }
-
-  if (name) {
-    const { isValid, message } = validateName(name)
-    if (!isValid) {
-      validationMessage.push(message)
-    } else {
-      updatedUserData.name = name
-    }
-  }
-
-  if (validationMessage.length) {
+  if (validationError.length) {
     return {
-      error: validationMessage.join(', '),
+      error: validationError,
       statusCode: 400,
     }
   }

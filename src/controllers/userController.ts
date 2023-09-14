@@ -9,6 +9,7 @@ import {
   getUsersService,
   getUserByIdService,
   deleteUserService,
+  updateUserService,
 } from '../services'
 import { JSON_WEB_TOKEN_COOKIE } from '../constants'
 
@@ -160,7 +161,14 @@ export const deleteUser = asyncHandler(
  * @acess Private/Admin
  */
 export const updateUser = asyncHandler(
-  async (_req: Request, res: Response): Promise<void> => {
-    res.send('update user')
+  async (req: Request, res: Response): Promise<void> => {
+    const { error, data, statusCode } = await updateUserService(req)
+
+    if (error) {
+      res.status(statusCode)
+      throw new Error(error)
+    }
+
+    res.status(statusCode).json(data)
   }
 )

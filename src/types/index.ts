@@ -77,3 +77,13 @@ export type SchemaValidation = {
   isValid: boolean
   message: string
 }
+
+export type UserProfileSchema = {
+  name?: string
+  email?: string
+  password?: string
+}
+
+export interface UserSchema extends UserProfileSchema {
+  isAdmin?: boolean
+}
