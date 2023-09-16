@@ -19,7 +19,7 @@ export type Product = {
 }
 
 export type Review = {
-  user: User
+  user: Schema.Types.ObjectId
   name: string
   rating: number
   comment: string

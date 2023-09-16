@@ -5,6 +5,13 @@ export function validateSingleString(
   min: number = 2,
   fieldName: string = ''
 ): SchemaValidation {
+  if (value === 'undefined') {
+    return {
+      isValid: false,
+      message: `field ${fieldName} is required`,
+    }
+  }
+
   if (typeof value !== 'string') {
     return {
       isValid: false,

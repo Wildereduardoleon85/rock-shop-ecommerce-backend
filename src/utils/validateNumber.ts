@@ -5,21 +5,29 @@ export function validateNumber(
   allowZero: boolean = true,
   fieldName: string = ''
 ): SchemaValidation {
-  let message = ''
-  let isValid = true
+  if (value === 'undefined') {
+    return {
+      message: `field ${fieldName} is required`,
+      isValid: false,
+    }
+  }
 
   if (typeof value !== 'number') {
-    message = `field ${fieldName} must be a number`
-    isValid = false
+    return {
+      message: `field ${fieldName} must be a number`,
+      isValid: false,
+    }
   }
 
   if (!allowZero && value === 0) {
-    message = `field ${fieldName} must not be zero`
-    isValid = false
+    return {
+      message: `field ${fieldName} must not be zero`,
+      isValid: false,
+    }
   }
 
   return {
-    message,
-    isValid,
+    message: '',
+    isValid: true,
   }
 }

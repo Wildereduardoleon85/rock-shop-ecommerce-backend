@@ -5,8 +5,14 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
+  createPtoductReview,
 } from '../controllers'
-import { admin, protect, updateProductValidation } from '../middlewares'
+import {
+  admin,
+  protect,
+  updateProductValidation,
+  createProductReviewValidation,
+} from '../middlewares'
 
 const productRoutes: Router = Router()
 
@@ -16,5 +22,8 @@ productRoutes
   .get(getProductById)
   .put(protect, admin, updateProductValidation, updateProduct)
   .delete(protect, admin, deleteProduct)
+productRoutes
+  .route('/:id/reviews')
+  .post(protect, createProductReviewValidation, createPtoductReview)
 
 export { productRoutes }
