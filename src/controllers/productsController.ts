@@ -16,8 +16,8 @@ import { AuthRequest } from '../types'
  * @acess Public
  */
 export const getProducts = asyncHandler(
-  async (_req: Request, res: Response): Promise<void> => {
-    const { data, statusCode } = await getProductsService()
+  async (req: Request, res: Response): Promise<void> => {
+    const { data, statusCode } = await getProductsService(req)
 
     res.status(statusCode).json(data)
   }

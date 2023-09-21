@@ -1,5 +1,6 @@
 import { Request } from 'express'
 import { validateNumber, validateSingleString } from '../utils'
+import { DEFAULT_PRODUCT_IDS } from '../constants'
 
 export function validateUpdateProductSchema(req: Request): string[] {
   const { name, price, description, image, brand, category, countInStock } =
@@ -21,6 +22,10 @@ export function validateUpdateProductSchema(req: Request): string[] {
     true,
     'countInStock'
   )
+
+  if (DEFAULT_PRODUCT_IDS.includes(String(req.params.id))) {
+    errors.push('default products should not be updated')
+  }
 
   if ('name' in req.body && !nameValidation.isValid) {
     errors.push(nameValidation.message)
