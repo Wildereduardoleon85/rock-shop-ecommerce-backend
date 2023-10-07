@@ -21,7 +21,7 @@ export function errorHandler(
     res.status(404)
     res.json({
       message: 'item not found',
-      stack: process.env.NODE_ENV === 'production' ? null : err.stack,
+      stack: process.env.ENV === 'production' ? null : err.stack,
     })
   } else {
     const statusCode: number = res.statusCode === 200 ? 500 : res.statusCode
@@ -29,7 +29,7 @@ export function errorHandler(
     res.status(statusCode)
     res.json({
       message: err.message,
-      stack: process.env.NODE_ENV === 'production' ? null : err.stack,
+      stack: process.env.ENV === 'production' ? null : err.stack,
     })
   }
 }
