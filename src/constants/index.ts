@@ -22,7 +22,7 @@ export const CORS_OPTIONS = {
   ) => {
     const ACCEPTED_ORIGINS = [
       'https://rockshop-api.onrender.com',
-      'https://rock-shop-ecommerce.netlify.app/',
+      'https://rock-shop-ecommerce.netlify.app',
     ]
 
     if (ACCEPTED_ORIGINS.includes(origin as string)) {
