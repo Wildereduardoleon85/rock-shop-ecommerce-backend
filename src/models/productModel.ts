@@ -37,9 +37,14 @@ const productSchema = new Schema<Product>(
       type: String,
       required: true,
     },
-    image: {
-      type: String,
-      required: true,
+    images: {
+      default: {
+        type: String,
+        required: true,
+      },
+      md: {
+        type: String,
+      },
     },
     description: {
       type: String,

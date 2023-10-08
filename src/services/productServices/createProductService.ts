@@ -8,7 +8,10 @@ export async function createProductService(
     name: 'Sample name',
     price: 0,
     user: req.user?._id,
-    image: 'sample-image.jpg',
+    images: {
+      default: 'sample-image.webp',
+      md: 'sample-image-md.webp',
+    },
     brand: 'Sample brand',
     category: 'Sample category',
     countInStock: 0,

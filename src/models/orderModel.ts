@@ -18,9 +18,14 @@ const orderSchema = new Schema<Order>(
           type: Number,
           required: true,
         },
-        image: {
-          type: String,
-          required: true,
+        images: {
+          default: {
+            type: String,
+            required: true,
+          },
+          md: {
+            type: String,
+          },
         },
         price: {
           type: Number,

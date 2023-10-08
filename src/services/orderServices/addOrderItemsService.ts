@@ -23,7 +23,7 @@ export async function addOrderItemsService(
       orderItems: orderItems.map((item: OrderItem) => ({
         name: item.name,
         qty: item.qty,
-        image: item.image,
+        images: item.images,
         price: item.price,
         product: item.product,
       })),

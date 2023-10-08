@@ -4,7 +4,10 @@ import { Request } from 'express'
 export type Product = {
   _id: string
   name: string
-  image: string
+  images: {
+    default: string
+    md?: string
+  }
   description: string
   brand: string
   category: string
@@ -35,10 +38,13 @@ export type User = {
 
 export type UserResponse = Omit<User, 'password'>
 
-export interface OrderItem extends Document {
+export type OrderItem = {
   name: string
   qty: number
-  image: string
+  images: {
+    default: string
+    md?: string
+  }
   price: number
   product: Schema.Types.ObjectId
 }

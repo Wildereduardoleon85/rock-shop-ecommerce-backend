@@ -21,7 +21,7 @@ function validateItems(orderItems: any): SchemaValidation {
       message = `field orderItems[${index}].qty must not be zero`
     }
 
-    if (!validateSingleString(item.image).isValid) {
+    if (!validateSingleString(item.images.default).isValid) {
       isValid = false
       message = `invalid orderItems[${index}].image field`
     }
