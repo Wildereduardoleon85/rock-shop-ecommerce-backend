@@ -17,3 +17,5 @@ Clone repository, set up the environment variables, [here](https://github.com/Wi
 ```bash
 npm run dev
 ```
+
+For start the server in poduction mode run `npm start` command.
