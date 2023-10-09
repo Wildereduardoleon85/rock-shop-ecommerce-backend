@@ -43,6 +43,8 @@ if (process.env.ENV === 'production') {
   })
 }
 
+console.log(path.join(path.resolve(), '/docs'))
+
 app.use(notFound)
 app.use(errorHandler)
 
