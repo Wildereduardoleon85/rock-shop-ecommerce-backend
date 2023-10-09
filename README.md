@@ -12,4 +12,8 @@ npm install
 
 ## Usage
 
-Set up the environment variables first, [here](https://github.com/Wildereduardoleon85/rock-shop-ecommerce-backend/blob/main/.env.example) is an .env.example file that can help with this. For the MONGO_URI value, you need to configure a MongoDB database and seed up some data.
+Clone repository, set up the environment variables, [here](https://github.com/Wildereduardoleon85/rock-shop-ecommerce-backend/blob/main/.env.example) is an .env.example file that can help with this. For the MONGO_URI value, you need to configure a MongoDB database and seed up some data. Once the data is done, simply run the following command to raise up the server in development mode:
+
+```bash
+npm run dev
+```
