@@ -93,3 +93,9 @@ export type UserProfileSchema = {
 export interface UserSchema extends UserProfileSchema {
   isAdmin?: boolean
 }
+
+export type ANSIColorsEnums = 'red' | 'green' | 'yellow' | 'cyan'
+
+export type ANSIColors = {
+  [key in ANSIColorsEnums]: string
+}

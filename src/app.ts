@@ -1,10 +1,10 @@
 import path from 'path'
 import express from 'express'
 import cookieParser from 'cookie-parser'
+import compression from 'compression'
 import { orderRoutes, productRoutes, userRoutes, uploadRoutes } from './routes'
 import connectDB from './config/db'
 import { errorHandler, notFound } from './middlewares'
-import compression from 'compression'
 
 require('dotenv').config()
 
@@ -42,8 +42,6 @@ if (process.env.ENV === 'production') {
     res.send('API running...')
   })
 }
-
-console.log(path.join(path.resolve(), '/docs'))
 
 app.use(notFound)
 app.use(errorHandler)

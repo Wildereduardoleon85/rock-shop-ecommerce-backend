@@ -12,7 +12,8 @@
     "test:ci": "jest --coverage=true",
     "transpile": "tsc",
     "build": "tsc -p .",
-    "lint": "eslint . --ext ts"
+    "lint": "eslint . --ext ts",
+    "seeder": "tsc -p . && node dist/seeder/import.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
