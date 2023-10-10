@@ -12,10 +12,12 @@ npm install
 
 ## Usage
 
-Clone repository, set up the environment variables, [here](https://github.com/Wildereduardoleon85/rock-shop-ecommerce-backend/blob/main/.env.example) is an .env.example file that can help with this. For the MONGO_URI value, you need to configure a MongoDB database based on the [models](https://github.com/Wildereduardoleon85/rock-shop-ecommerce-backend/tree/main/src/models) of this repository (the only data required for start up is the products and at least 1 admin user), get the connection string, add it as value for the MONGO_URI variable, and seed up some data. Once the data is done, simply run the following command to raise up the server in development mode:
+Clone repository, set up the environment variables, [here](https://github.com/Wildereduardoleon85/rock-shop-ecommerce-backend/blob/main/.env.example) is an .env.example file that can help with this. Configure mongo db databse, you can download the community server along with compass from [here](https://www.mongodb.com/try/download/community). Once the database is configured, you need to run the following script for seed some data in the database:
 
 ```bash
-npm run dev
+npm run seeder
 ```
+
+And then simply run the `npm run dev` command for raise up the server in development mode
 
 For start the server in poduction mode run `npm start` command.
