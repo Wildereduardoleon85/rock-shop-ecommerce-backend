@@ -1,4 +1,4 @@
-# Rockshop eCommerce
+# Rockshop eCommerce Backend
 
 This is the api that serves my [Web App Rockshop](https://rockshop.onrender.com/). You can check the frontend repo [here](https://github.com/Wildereduardoleon85/rock-shop-ecommerce-frontend)
 
