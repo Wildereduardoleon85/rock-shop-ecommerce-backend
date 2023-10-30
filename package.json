@@ -1,6 +1,6 @@
 {
   "name": "rock-shop-backend",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "backend server for rockshop app",
   "author": "Wilder Leon",
   "main": "dist/app.js",
